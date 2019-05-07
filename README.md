@@ -1,10 +1,27 @@
-# CIS*2750 Assignment 3 - Stub
+# CIS\*2750 iCalendar Manager
 
-For this assignment, and web development in general you will need to exercise your "google-fu", your skill in using a search engine to find answers to problems.
+This was the main project of the "Software Systems Development and Integration" course at the University of Guelph. It was first developed as a C backend, but later became a full-fledged Node web app.
 
-You do not need to do much backend coding at all for Module 1. app.js should just contain hard coded response values.
+Users may:
+- Upload existing iCalendar (\*.ics) files to view within the program
+- View files' events, alarms, and property values
+- Validate files for iCalendar formatting errors
+- Edit existing iCalendar files by adding new event components
+- Create new iCalendar files with an initial event
+- Push all iCalendar files to a MySQL backend server 
+- Survey the iCalendar files in the MySQL server by means of built-in SQL queries
 
-## Installation of Node App
+## Technologies Used
+- C (backend)
+- HTML, CSS (frontend)
+- Bootstrap (CSS framework for frontend)
+- JavaScript and JQuery (scripting and interactivity)
+- Node.js (server-side JavaScript environment; streamlined creation of a RESTful API)
+- AJAX (asynchronous JavaScript requests)
+- JSON (object serialization and information passing between front- and back-end)
+- MySQL (database persistence and querying)
+
+## Installation
 
 ### 1. Install
 
@@ -16,7 +33,7 @@ npm install
 ### 2. Running Server
 
 ```Bash
-# PORT is your personally given port number, e.g. 1234
+# PORT is your given port number, e.g. 1234
 npm run dev PORT
 # Server will be accessible at http://localhost:PORT
 ```
@@ -24,7 +41,7 @@ npm run dev PORT
 ## Directory Structure
 
 ```Bash
-# This contains the Backend Node Server, with our Web Application and API
+# This contains the Backend Node Server, with the Web Application and API
 app.js
 
 # These are the package configuration files for npm to install dependencies
@@ -40,20 +57,19 @@ public/index.js
 # This is the Frontend Custom Style Sheet file
 public/style.css
 
-# This is the directory for uploaded .vcf files
+# This is the directory for uploaded .ics files
 upload/
 
-# This is the directory where you put all your C parser code
+# This is the directory where the C parser backend code is
 parser/
 ```
-You will need to add functionality to app.js, index.html, index.js and, if you wish, style.css.
 
 
 ## Components
 
 ### Public Files, HTML, CSS, JavaScript
 
-* These make up the "frontend", files that are directly accessed by users. They can see the source code
+* These make up the "frontend", files that are directly accessed by users
 * To view these files from your browser, right click on something on the webpage and click "inspect element" to open your browsers "dev tools"
 * Common tabs in the dev tools are:
     * Console: Displays errors, you can run JavaScript, see console.log() output
