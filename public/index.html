@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<title>Calendar Viewer</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="iCalendar editor and viewer created for CIS*2750 class">
+	<meta name="keywords" content="iCal, iCalendar, VCALENDAR, Angel of Death">
+	<meta name="author" content"Jason Nguyen">
+	<!-- Load jquery, bootstrap -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="/style.css">
+	<!-- The below line was added in by DreamWeaver -->
+	<!-- <link href="style.css" rel="stylesheet" type="text/css"> -->
+	<!-- Custom CSS End -->
+    </head>
+    <body>
+	<!-- Title -->
+	<div class="jumbotron jumbotron-fluid bg-primary text-white rounded">
+	    <div class="container-fluid">
+		<h1 class="display-4">
+		    <center>Calendar Viewer 2.0</center>
+		</h1>
+		<p class="lead">
+		<center><h3>Jason Nguyen</h3></center>
+		</p>
+	    </div>
+	</div>
+
+	<!-- Popup Form for Database Login -->
+	<div class="form-popup" id="databaseFormFrame">
+	    <form id="databaseForm">
+		<div class="form-group">
+		    <label for="usernameField">Username</label>
+		    <input type="text" class="form-control" id="usernameField" name="usernameField" placeholder="User ID" required>
+		</div>
+		<div class="form-group">
+		    <label for="passwordField">Password</label>
+		    <input type="password" class="form-control" id="passwordField" name="passwordField" placeholder="Enter password..." required>
+		</div>
+		<div class="form-group">
+		    <label for="databaseField">Database</label>
+		    <input type="text" class="form-control" id="databaseField" name="databaseField" placeholder="Database" required>
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+		<small id="databaseLoginFeedback" class="form-text text-danger"></small>
+	    </form>
+	</div>
+
+	<!-- Database Center -->
+	<div class="database-center" id="databaseCenter">
+	    <center>
+		<h3>Database</h3>
+		<button id="storeAllFilesButton" class="btn btn-info" type="button">Store All Files</button>
+		<button id="clearAllDataButton" class="btn btn-info" type="button">Clear All Data</button>
+		<button id="displayDBStatusButton" class="btn btn-info" type="button">Display DB Status</button>
+	    </center>
+	    <br>
+	    <center>
+		<select id="dbQuerySelect" class="custom-select custom-select-lg mb-3 w-50">
+		    <option value="default">Select a query...</option>
+		    <option value="1">Display all events from file</option>
+		    <option value="2">Display all conflicting events</option>
+		    <option value="3">Display all events sorted by start date</option>
+		    <option value="4">Display all events in a certain location</option>
+		    <option value="5">Display all events on/after a certain year</option>
+		    <option value="6">Display all alarms that have not happened yet</option>
+		</select>
+	    </center>
+	</div>
+
+	<!-- Query Option 1 -->
+	<div class="query-option-one" id="query-option-one">
+	    <center>
+		<select id="queryOneFileSelect" class="custom-select mb-3 w-50">
+		    <option value="default">Select a file...</option>
+		</select>
+		<center>
+		    <div class="tableScroll">
+			<table id="dbShowEventsTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			    <thead class="thead-light">
+				<tr>
+				    <th scope="col">Start Date</th>
+				    <th scope="col">Start Time</th>
+				    <th scope="col">Summary</th>
+				</tr>
+			    </thead>
+			    <tbody>
+			    </tbody>
+			</table>
+		    </div>
+		</center>
+
+	    </center>
+	</div>
+
+	<!-- Query Option 2 -->
+	<div class="query-option-two" id="query-option-two">
+	    <center>
+		<div class="tableScroll">
+		    <table id="DBCollisionTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			<thead class="thead-light">
+			    <tr>
+				<th scope="col">Start Date</th>
+				<th scope="col">Start Time</th>
+				<th scope="col">Summary</th>
+				<th scope="col">Organizer</th>
+			    </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		    </table>
+		</div>
+	    </center>
+
+	</div>
+
+	<!-- Query Option 3 -->
+	<div class="query-option-three" id="query-option-three">
+	    <center>
+		<div class="tableScroll">
+		    <table id="dbSortEventsTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			<thead class="thead-light">
+			    <tr>
+				<th scope="col">Start Date</th>
+				<th scope="col">Start Time</th>
+				<th scope="col">Summary</th>
+			    </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		    </table>
+		</div>
+	    </center>
+	</div>
+
+	<!-- Query Option 4 -->
+	<div class="query-option-four" id="query-option-four">
+	    <center>
+		<form id="locationForm" name="locationForm">
+		<label for="locationPrompt">Location to search for</label>
+		<input type="text" class="form-control w-50" id="locationPrompt" name="locationPrompt" required>
+		<br><button id="locationSubmit" name="locationSubmit" class="btn btn-primary" type="submit">Search</button>
+		<br>
+		</form>
+
+		<div class="tableScroll">
+		    <table id="eventLocationTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			<thead class="thead-light">
+			    <tr>
+				<th scope="col">Location</th>
+				<th scope="col">Start Date</th>
+				<th scope="col">Start Time</th>
+				<th scope="col">Summary</th>
+			    </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		    </table>
+		</div>
+	    </center>
+	</div>
+
+	<!-- Query Option 5 -->
+	<div class="query-option-five" id="query-option-five">
+	    <center>
+		<form id="eventYearForm" name="eventYearForm">
+		    <label for="eventYearPrompt">Enter a year</label>
+		    <input type="text" class="form-control w-50" id="eventYearPrompt" name="eventYearPrompt" required>
+		    <br><button id="eventYearSubmit" name="eventYearSubmit" class="btn btn-primary" type="submit">Search</button>
+		    <br>
+		</form>
+
+		<div class="tableScroll">
+		    <table id="eventYearTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			<thead class="thead-light">
+			    <tr>
+				<th scope="col">Start Date</th>
+				<th scope="col">Start Time</th>
+				<th scope="col">Summary</th>
+				<th scope="col">Location</th>
+				<th scope="col">Organizer</th>
+			    </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		    </table>
+		</div>
+	    </center>
+	</div>
+
+	<!-- Query Option 6 -->
+	<div class="query-option-six" id="query-option-six">
+	    <center>
+		<div class="tableScroll">
+		    <table id="alarmRetroTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			<thead class="thead-light">
+			    <tr>
+				<th scope="col">Action</th>
+				<th scope="col">Trigger</th>
+			    </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		    </table>
+		</div>
+	    </center>
+
+	</div>
+
+	<hr>
+	<!-- Status Panel -->
+	<center><h3>Status Log</h3></center>
+	<center>
+	    <textarea id="statusLog" name="statusLog" readonly rows="4" cols="150"></textarea>
+	    <br>
+	</center>
+	<center>
+	    <button id="clearButton" class="btn btn-primary">Clear</button>
+	    <!-- <button id="openDatabaseButton" class="btn btn-info" type="button" data-toggle="collapse" data-target="#databaseCard" aria-expanded="false"> -->
+	    <button id="openDatabaseButton" class="btn btn-info" type="button">
+		Database Login
+	    </button>
+	</center>
+	<hr>
+
+	<!-- File Log Panel -->
+	<center><h3>File Log</h3></center>
+	<center>
+	    <div class="tableScroll">
+		<table id="fileLogTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+		    <thead class="thead-light">
+			<tr>
+			    <th scope="col">File/Download</th>
+			    <th scope="col">Version</th>
+			    <th scope="col">Product ID</th>
+			    <th scope="col">No. Events</th>
+			    <th scope="col">No. Properties</th>
+			</tr>
+		    </thead>
+		    <tbody>
+			<tr>
+			    <td></td>
+			    <td></td>
+			    <td>No files.</td>
+			    <td></td>
+			    <td></td>
+			</tr>
+		    </tbody>
+		</table>
+	    </div>
+	</center>
+
+	<center>
+	    <button id="createCalendarButton" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#createCalendarForm" aria-expanded="false" aria-controls="createCalendarForm">
+		Create Calendar
+	    </button>
+
+	    <button id="uploadCalendarButton" class="file btn btn-primary" type="submit" value="submit" form="uploadCalendarForm">Upload Calendar</button>
+
+	</center>
+
+	<center>
+	    <form id="uploadCalendarForm">
+		<input id="uploadCalendarPicker" name="uploadCalendarPicker" type="file" accept=".ics">
+	    </form>
+	</center>
+
+	<hr>
+
+	<div class="collapse" id="createCalendarForm">
+	    <div class="card card-body">
+		<h3>Create Calendar</h3>
+		<form id="createCalendarFormFinal" name="createCalendarFormFinal">
+		    <div class="form-group">
+			<label for="calendarFileName">Calendar filename</label>
+			<input type="text" class="form-control" id="calendarFileName" name="calendarFileName" placeholder="<filename>.ics">
+			<small id="calendarFilenameError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-group">
+			<label for="version">Version</label>
+			<input type="text" class="form-control" id="calendarVersion" name="calendarVersion" placeholder="x.x">
+			<small id="calendarVersionError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-group">
+			<label for="PRODID">Product ID</label>
+			<input type="text" class="form-control" id="calendarPRODID" name="calendarPRODID" placeholder="-//CALENDARSERVER.ORG//NONSGML Version 1//EN">
+			<small id="calendarPRODIDError" class="form-text text-danger"></small>
+		    </div>
+
+		    <hr>
+
+		    <h3>Mandatory Initial Event</h3>
+		    <div class="form-group">
+			<label for="UID">Unique Identifier (UID)</label>
+			<input type="text" class="form-control" id="feUID" name="feUID" placeholder="UID">
+			<small id="feUIDError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-group">
+			<label for="DTSTARTd">Start Date</label>
+			<input type="text" class="form-control" id="feDTSTARTd" name="feDTSTARTd" placeholder="YYYY/MM/DD">
+			<small id="feDTSTARTdError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-group">
+			<label for="DTSTARTt">Start Time</label>
+			<input type="text" class="form-control" id="feDTSTARTt" name="feDTSTARTt" placeholder="HH:MM:SS">
+			<small id="feDTSTARTtError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-check">
+			<input type="checkbox" class="form-check-input" id="feUTCCheck" name="feUTCCheck">
+			<label class="form-check-label" for="UTCCheck">UTC</label>
+		    </div>
+		    <hr>
+		    <div class="form-group">
+			<label for="Summary">Summary</label>
+			<input type="text" class="form-control" id="feSummary" name="feSummary" placeholder="Optional">
+			<small id="feSummaryError" class="form-text text-danger"></small>
+		    </div>
+		    <button type="submit" id="submitCreateCalendar" class="btn btn-primary">Finish</button>
+		</form>
+	    </div>
+	</div>
+
+	<!-- Calendar View Panel -->
+	<center><h3>Calendar View</h3></center>
+
+	<select id="calendarFileSelect" class="custom-select custom-select-lg mb-3 w-50 float-left">
+	    <option value="Choose a calendar...">Choose a calendar...</option>
+	</select>
+
+	<select id="eventSelect" class="custom-select custom-select-lg mb-3 w-50 float-right">
+	    <option value="Choose an event...">Choose an event...</option>
+	</select>
+
+	<center>
+	    <div class="tableScroll">
+		<table id="calendarViewTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+		    <thead class="thead-light">
+			<tr>
+			    <th scope="col">Event Number</th>
+			    <th scope="col">Start Date</th>
+			    <th scope="col">Start Time</th>
+			    <th scope="col">Properties</th>
+			    <th scope="col">Alarms</th>
+			    <th scope="col">Summary</th>
+			</tr>
+		    </thead>
+		    <tbody>
+		    </tbody>
+		</table>
+	    </div>
+	</center>
+
+	<center>
+	    <button id="addEventButton" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#addEventForm" aria-expanded="false" aria-controls="addEventForm">
+		Add Event
+	    </button>
+
+	    <button id="showAlarmButton" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#showAlarmPanel" aria-expanded="false" aria-controls="showAlarmPanel">
+		Show Alarms
+	    </button>
+
+	    <button id="showPropertiesButton" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#showPropertiesPanel" aria-expanded="false" aria-controls="showPropertiesPanel">
+		Show Properties
+	    </button>
+
+	</center>
+
+	<hr>
+
+	<div class="collapse" id="addEventForm">
+	    <div class="card card-body">
+		<h3>Add Event</h3>
+		<form id="addEventFormFinal" name="addEventFormFinal">
+		    <div class="form-group">
+			<label for="UID">Unique Identifier (UID)</label>
+			<input type="text" class="form-control" id="UID" name="UID" placeholder="UID">
+			<small id="UIDError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-group">
+			<label for="DTSTARTd">Start Date</label>
+			<input type="text" class="form-control" id="DTSTARTd" name="DTSTARTd" placeholder="YYYY/MM/DD">
+			<small id="DTSTARTdError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-group">
+			<label for="DTSTARTt">Start Time</label>
+			<input type="text" class="form-control" id="DTSTARTt" name="DTSTARTt" placeholder="HH:MM:SS">
+			<small id="DTSTARTtError" class="form-text text-danger"></small>
+		    </div>
+		    <div class="form-check">
+			<input type="checkbox" class="form-check-input" id="UTCCheck" name="UTCCheck">
+			<label class="form-check-label" for="UTCCheck">UTC</label>
+		    </div>
+		    <hr>
+		    <div class="form-group">
+			<label for="Summary">Summary</label>
+			<input type="text" class="form-control" id="Summary" name="Summary" placeholder="Optional">
+			<small id="SummaryError" class="form-text text-danger"></small>
+		    </div>
+		    <button type="submit" id="submitAddEvent" class="btn btn-primary">Finish</button>
+		    <div id="dumbCheck"></div>
+		</form>
+	    </div>
+	</div>
+
+	<div class="collapse" id="showAlarmPanel">
+	    <center>
+		<h3>Alarms</h3>
+		<div class="tableScroll">
+		    <table id="showAlarmTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			<thead class="thead-light">
+			    <tr>
+				<th scope="col">Alarm Number</th>
+				<th scope="col">Action</th>
+				<th scope="col">Trigger</th>
+				<th scope="col">No. Properties</th>
+			    </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		    </table>
+		</div>
+	    </center>
+	</div>
+
+	<div class="collapse" id="showPropertiesPanel">
+	    <center>
+		<h3>Optional Properties</h3>
+		<div class="tableScroll">
+		    <table id="showPropertiesTable" class="table table-bordered table-hover" cellspacing="30" cellpadding="20">
+			<thead class="thead-light">
+			    <tr>
+				<th scope="col">Property</th>
+				<th scope="col">Description</th>
+			    </tr>
+			</thead>
+			<tbody>
+			</tbody>
+		    </table>
+		</div>
+	    </center>
+	</div>
+	<br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br>
+	<br>	
+	<!-- Leave me at the bottom of body -->
+	<script src="/index.js"></script>
+	<!-- Dreamweaver is kind of weird -->
+	<!-- <script src="index.js"></script> -->
+    </body>
+</html>
+
+
+
+
+
+
+
