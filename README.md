@@ -1,8 +1,9 @@
+![banner](https://i.imgur.com/8HphtJG.png)
 # CIS\*2750 iCalendar Manager
 
 This was the main project of the "Software Systems Development and Integration" course at the University of Guelph. It was first developed as a C backend, but later became a full-fledged Node web app.
 
-[Screenshots](#screenshots)
+[Screenshots](https://github.com/jnguyen1098/iCalendarManager/wiki/Screenshots)
 
 Users may:
 - Upload existing iCalendar (\*.ics) files to view within the program
@@ -22,6 +23,7 @@ Users may:
 - AJAX (asynchronous JavaScript requests)
 - JSON (object serialization and information passing between front- and back-end)
 - MySQL (database persistence and querying)
+
 
 ## Installation
 
@@ -65,8 +67,7 @@ upload/
 # This is the directory where the C parser backend code is
 parser/
 ```
-## Screenshots
-Test test
+
 
 ## How does everything work together?
 
