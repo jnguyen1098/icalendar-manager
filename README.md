@@ -2,6 +2,8 @@
 
 This was the main project of the "Software Systems Development and Integration" course at the University of Guelph. It was first developed as a C backend, but later became a full-fledged Node web app.
 
+[Screenshots](#screenshots)
+
 Users may:
 - Upload existing iCalendar (\*.ics) files to view within the program
 - View files' events, alarms, and property values
@@ -63,6 +65,8 @@ upload/
 # This is the directory where the C parser backend code is
 parser/
 ```
+## Screenshots
+Test test
 
 ## How does everything work together?
 
