@@ -12,8 +12,6 @@
 
 enum level {CALENDAR = 0, EVENT = 1, ALARM = 2};
 
-/* Disgusting JSON stuff */
-
 /* Isolates JSON value 
  * Returns either a dynamically allocated string 
  * containing the value of the key or returns
