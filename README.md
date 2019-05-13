@@ -5,8 +5,6 @@ This was the main project of the "Software Systems Development and Integration" 
 
 [Screenshots](https://github.com/jnguyen1098/iCalendarManager/wiki/Screenshots)
 
-[Installation](https://github.com/jnguyen1098/iCalendarManager#installation)
-
 [Glossary](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary)
 
 Users may:
