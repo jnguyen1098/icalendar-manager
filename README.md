@@ -7,7 +7,7 @@ This was the main project of the "Software Systems Development and Integration" 
 
 [Installation](https://github.com/jnguyen1098/iCalendarManager#installation)
 
-[Glossary](https://github.com/jnguyen1098/iCalendarStresser/Glossary)
+[Glossary](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary)
 
 Users may:
 - Upload existing iCalendar (\*.ics) files to view within the program
