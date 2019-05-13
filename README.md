@@ -7,7 +7,7 @@ This was the main project of the "Software Systems Development and Integration" 
 
 Users may:
 - Upload existing iCalendar (\*.ics) files to view within the program
-- View files' events, alarms, and property values
+- View files' [events](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary#event), [alarms](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary#alarm), and [properties](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary#property)
 - Validate files for iCalendar formatting errors
 - Edit existing iCalendar files by adding new event components
 - Create new iCalendar files with an initial event
