@@ -1,9 +1,9 @@
 ![banner](https://i.imgur.com/8HphtJG.png)
 # CIS\*2750 iCalendar Manager
 
-This was the main project of the "Software Systems Development and Integration" course at the University of Guelph. It was first developed as a C backend, but later became a full-fledged Node web app.
-
 ### [Installation](#installation) | [Screenshots](https://github.com/jnguyen1098/iCalendarManager/wiki/Screenshots) | [Glossary](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary)
+
+This was the main project of the "Software Systems Development and Integration" course at the University of Guelph. It was first developed as a C backend, but later became a full-fledged Node web app.
 
 Users may:
 - Upload existing iCalendar (\*.ics) files to view within the program
