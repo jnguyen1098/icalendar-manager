@@ -224,7 +224,8 @@ void insertSorted(List *list, void *toBeAdded){
 		return;
 	}
 	
-	(list->length)++;
+	// it appears the count is updated twice within this function
+	// (list->length)++;
 
 	if (list->head == NULL){
 		insertBack(list, toBeAdded);
