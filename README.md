@@ -5,6 +5,8 @@
 
 This was the main project of the "Software Systems Development and Integration" course at the University of Guelph. It was first developed as a C backend, but later became a full-fledged RESTful web app.
 
+In addition to this, I also made an [automated test harness](https://github.com/jnguyen1098/iCalendarStresser) for the backend parser (containing over 5000 generated test cases).
+
 Users may:
 - Upload existing iCalendar (\*.ics) files to view within the program
 - View files' [events](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary#event), [alarms](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary#alarm), and [properties](https://github.com/jnguyen1098/iCalendarStresser/wiki/Glossary#property)
