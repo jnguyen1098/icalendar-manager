@@ -25,6 +25,7 @@ Users may:
 - AJAX (asynchronous JavaScript requests)
 - JSON (object serialization and information passing between front- and back-end)
 - MySQL (database persistence and querying)
+- A lot of love
 
 
 ## Installation
