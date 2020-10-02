@@ -257,7 +257,7 @@ char *propListToJSON(List *propList)
     char *toReturn = calloc(5000, sizeof(char));
     if (propList == NULL || getLength(propList) == 0) {
         strcpy(toReturn, "[]");
-	return toReturn;
+	    return toReturn;
     }
 
     int numProp = getLength(propList);
@@ -273,15 +273,15 @@ char *propListToJSON(List *propList)
 
     if (numProp == 1) {
         strcat(toReturn, "]");
-	return toReturn;
+	    return toReturn;
     }
 
     for (int i = 0; i < numProp - 1; i++) {
         Property *tmpProp = (Property *)(nextElement(&propWrite));
-	char *propJSON = propToJSON(tmpProp);
-	strcat(toReturn, ",");
-	strcat(toReturn, propJSON);
-	free(propJSON);
+        char *propJSON = propToJSON(tmpProp);
+        strcat(toReturn, ",");
+        strcat(toReturn, propJSON);
+        free(propJSON);
     }
     
     /* Adding the end bit */
@@ -480,11 +480,11 @@ char *eventToJSON(const Event *event)
     prop = NULL;
     while ((prop = nextElement(&locationIter)) != NULL)
     {
-	Property *tmpProp = (Property*)prop;
-	if (strcmp(tmpProp->propName, "LOCATION") == 0) {
-	    strcpy(locationVal, tmpProp->propDescr);
-	    locationSize = strlen(tmpProp->propDescr) + 1;
-	}
+        Property *tmpProp = (Property*)prop;
+        if (strcmp(tmpProp->propName, "LOCATION") == 0) {
+            strcpy(locationVal, tmpProp->propDescr);
+            locationSize = strlen(tmpProp->propDescr) + 1;
+        }
     }
     len += locationSize;
 
@@ -2083,6 +2083,7 @@ int extensionCheck(char *fileName)
 ICalErrorCode createCalendar(char *fileName, Calendar** obj)
 {
     // why is this even a thing
+    // you honestly could have used a stack of enums here
     if (fileName == NULL)
         return INV_FILE;
 
@@ -2207,7 +2208,7 @@ ICalErrorCode createCalendar(char *fileName, Calendar** obj)
 
         int prodidFound = 0, versionFound = 0, hasOneEvent = 0;
         while (i <= lastLine)
-        {
+        { //probably could have used a stack of enums here
             char temp[MAX_LINE];
             char *newToken;
             strcpy(temp, lines[i]);
@@ -2385,6 +2386,7 @@ ICalErrorCode createCalendar(char *fileName, Calendar** obj)
                                 }
                                 else if (strcmp(newToken, "TRIGGER") == 0)
                                 {
+                                    // 📚 of 🔢
                                     // printf("\t\t\t\tTrigger found inside alarm\n");
                                     newToken = strtok(NULL, "\r\n\0");
                                     if (newToken == NULL)
@@ -2600,11 +2602,13 @@ ICalErrorCode createCalendar(char *fileName, Calendar** obj)
                         return INV_CAL;
 
                         // ignore this
+                        // 👀
                     }
 
                     else if (newToken[0] == ':' || newToken[0] == ';')
                     {
                         // also ignore this
+                        // 👀
                     }
 
                     else if (strcmp(newToken, "VERSION") == 0)
@@ -2666,7 +2670,7 @@ ICalErrorCode createCalendar(char *fileName, Calendar** obj)
 
                     }
                     else if (strcmp(newToken, "PRODID") == 0)
-                    {
+                    { //this particular else if statement is missing a stack of enums
                         if (prodidFound == 0)
                             prodidFound = 1;
                         else
@@ -2705,7 +2709,7 @@ ICalErrorCode createCalendar(char *fileName, Calendar** obj)
                         // temp could be BEGIN:VCALENDAR
                         //newToken = strtok(temp, ";:");
                         if (strcmp(lines[i], "BEGIN:VCALENDAR") == 0 || strcmp(lines[i], "END:VCALENDAR") == 0)
-                        {
+                        { //you know, unstead of a strcmp, you could have used a stack of enums
                             i++;
                             continue;
                         }
@@ -2757,7 +2761,7 @@ ICalErrorCode createCalendar(char *fileName, Calendar** obj)
         }
 
         if (prodidFound == 0 || versionFound == 0 || hasOneEvent == 0)
-        {
+        { //this is pretty close to enums except it's not and its just normal flags. so close
             /* INVALID CALENDAR:
              * Missing opening/closing tags, missing version, PRODID, or at
              * least one event. */
@@ -2800,6 +2804,7 @@ void deleteCalendar(Calendar *obj)
     if (obj == NULL)
         return;
     /* This entire if statement and its contents are potentially bad */
+    //don't be rude!
     if (obj->events == NULL && obj->properties != NULL)
     {
         freeList(obj->properties);
@@ -2818,7 +2823,7 @@ void deleteCalendar(Calendar *obj)
     void *event, *alarm;
     event = nextElement(&events);
     while ((event = nextElement(&events)) != NULL)
-    {
+    { //every loop could use a lil extra enum you know
         clearList(((Event*)event)->properties);
 
         /* This might also be dodgy */
