@@ -1,5 +1,5 @@
-CC = gcc
-CFLAGS = -Wall -pedantic -std=c11 -g
+CC = clang
+CFLAGS = -Wall -Wpedantic -Weverything -Wextra -Werror -std=c11 -ggdb3
 CLINK = -L../ -lfinal
 
 UNAME_S := $(shell uname -s)
